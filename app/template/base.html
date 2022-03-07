@@ -16,10 +16,16 @@
 </head>
 
 <body>
-    <div class="text-center mt-5"><a id="mutumizi" href="/index">Home</a></div>
-    <hr>
-    {% block content %}{% endblock%}
-    <div class="text-center mt-5"><a href="/news">Login</a></div>
+    <div class="text-center mt-5">
+        Pitch:
+        <a id="mutumizi" href="/index">Home</a>
+        {% if current_user.is_anonymous %}
+        <!-- {% block content %}{% endblock%} -->
+        <a href="/Login">Login</a>
+        {% else %}
+        <a href="/Logout">logout</a>
+        {% endif %}
+    </div>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
