@@ -20,3 +20,4 @@ def load_user(id):
 class User(UserMixin, db.model):
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s'.format(digest,size)
