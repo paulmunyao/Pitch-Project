@@ -3,6 +3,7 @@ from app import app
 from app.forms import LoginForm
 from flask_login import current_user, login_user
 from app.models import User
+from flask_login import logout_user
 
 
 @app.route('/')
@@ -28,3 +29,9 @@ def login():
             form.username.data, form.remember_me.data))
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
