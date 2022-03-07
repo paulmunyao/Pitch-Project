@@ -5,6 +5,8 @@ from flask_login import current_user, login_user
 from app.models import User
 from flask_login import logout_user
 from flask import login_required
+from flask import request
+from werkzeug.urls import url_parse
 
 
 @app.route('/')
@@ -26,6 +28,10 @@ def login():
             flash('Inavlid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
         flash('Login requested for user {},remember_me={}'.format(
             form.username.data, form.remember_me.data))
         return redirect('/index')
@@ -44,4 +50,3 @@ def index():
     user = {"username": "WELCOME TO THE DEN"}
     posts = {"Welcome to the den where powerful ideas are shared and if you're not prepared one can be eaten or as they say the hunter becomes the hunted"}
     return render_template('index.html', title='Home', user=user, posts=posts)
-
