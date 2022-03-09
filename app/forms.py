@@ -1,5 +1,6 @@
+from turtle import title
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField,TextAreaField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError,Email,EqualTo, DataRequired
 from app.models import User
 class LoginForm(FlaskForm):
@@ -25,3 +26,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class PostForm(FlaskForm):
+    title = StringField('Title',validators=[DataRequired()]) 
+    description = TextAreaField('Description',validators=[DataRequired()])           
