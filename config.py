@@ -7,5 +7,5 @@ class Config(object):
     SECRET_KEY = 'guess-me'
 
     #Database
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/ip4'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
