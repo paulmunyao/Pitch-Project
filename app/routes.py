@@ -9,9 +9,10 @@ from werkzeug.urls import url_parse
 
 @app.route('/')
 def index():
+    blogs = Post.query.all()
     user = {"username": "WELCOME TO THE DEN"}
     posts = {"Welcome to the den where powerful ideas are shared and if you're not prepared one can be eaten or as they say the hunter becomes the hunted"}
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('index.html', title='Home', user=user, posts=posts,blogs=blogs)
 
 
 @app.route('/Login', methods=['GET', 'POST'])
@@ -64,7 +65,12 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/posts')
+@app.route('/posts', methods=['GET', 'POST'])
 def publish():
     form = PostForm()
-    return render_template('post.html')
+    if form.validate_on_submit():
+        post_create = Post(title=form.title.data,description=form.description.data)
+        db.session.add(post_create)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('post.html',form=form)
