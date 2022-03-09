@@ -1,10 +1,8 @@
 from app import app
 from flask import render_template, flash, redirect
 from app.forms import LoginForm
-from flask_login import current_user, login_user
+from flask_login import current_user,login_required,logout_user
 from app.models import User
-from flask_login import logout_user
-from flask import login_required
 from flask import request
 from werkzeug.urls import url_parse
 from app import db
@@ -16,6 +14,7 @@ def index():
     user = {"username": "WELCOME TO THE DEN"}
     posts = {"Welcome to the den where powerful ideas are shared and if you're not prepared one can be eaten or as they say the hunter becomes the hunted"}
     return render_template('index.html', title='Home', user=user, posts=posts)
+
 
 
 @app.route('/login', methods=['GET' 'POST'])
