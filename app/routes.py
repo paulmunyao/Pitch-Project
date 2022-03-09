@@ -66,4 +66,5 @@ def logout():
 
 @app.route('/posts')
 def publish():
+    form = PostForm()
     return render_template('post.html')
