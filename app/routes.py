@@ -1,7 +1,7 @@
 from app import app
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect,url_for
 from app.forms import LoginForm
-from flask_login import current_user, login_required, logout_user
+from flask_login import current_user, login_required, logout_user,login_user
 from app.models import User
 from flask import request
 from werkzeug.urls import url_parse
@@ -21,7 +21,7 @@ def Login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Inavlid username or password')
+            flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -63,3 +63,7 @@ def user(username):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/posts')
+def publish():
+    return render_template('post.html')
