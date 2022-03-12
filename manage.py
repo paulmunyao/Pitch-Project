@@ -6,7 +6,7 @@ from flask_script import Manager,Server
 from app import app,db
 migrate = Migrate(app,db)
 
-app = app('production')
+
 
 
 

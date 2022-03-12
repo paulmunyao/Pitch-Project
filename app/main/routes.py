@@ -1,4 +1,5 @@
-from app import main, db
+from . import main
+from app import db
 from flask import render_template, flash, redirect, url_for
 from app.main.forms import LoginForm, RegistrationForm,PostForm
 from flask_login import current_user, login_required, logout_user, login_user
@@ -27,9 +28,8 @@ def Login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
-        return redirect(next_page)
-        flash('Login requested for user {},remember_me={}'.format(
-            form.username.data, form.remember_me.data))
+            return redirect(next_page)
+        flash('Login requested for user {},remember_me={}'.format(form.username.data, form.remember_me.data))
         return redirect('/index')
     return render_template('Login.html', title='Sign In', form=form)
 
@@ -41,7 +41,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,password_hash=form.password.data)
-        # user.set_password(form.password.data)
+        user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
