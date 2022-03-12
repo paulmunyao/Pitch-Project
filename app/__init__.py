@@ -1,7 +1,7 @@
 
 from flask import Flask
-from app import errors
-from app.main import routes
+# from app import errors
+# from app.main import routes
 from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
