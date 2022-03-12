@@ -1,4 +1,4 @@
-from app import app, db
+from app import main, db
 from flask import render_template, flash, redirect, url_for
 from app.main.forms import LoginForm, RegistrationForm,PostForm
 from flask_login import current_user, login_required, logout_user, login_user
@@ -7,7 +7,7 @@ from flask import request
 from werkzeug.urls import url_parse
 
 
-@app.route('/')
+@main.route('/')
 def index():
     blogs = Post.query.all()
     user = {"username": "WELCOME TO THE DEN"}
@@ -15,7 +15,7 @@ def index():
     return render_template('index.html', title='Home', user=user, posts=posts,blogs=blogs)
 
 
-@app.route('/Login', methods=['GET', 'POST'])
+@main.route('/Login', methods=['GET', 'POST'])
 def Login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -34,7 +34,7 @@ def Login():
     return render_template('Login.html', title='Sign In', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@main.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -49,7 +49,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/user/<username>')
+@main.route('/user/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -59,13 +59,13 @@ def user(username):
     return render_template('user.html', user=user, posts=posts)
 
 
-@app.route('/logout')
+@main.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
-@app.route('/posts', methods=['GET', 'POST'])
+@main.route('/posts', methods=['GET', 'POST'])
 def publish():
     form = PostForm()
     if form.validate_on_submit():
