@@ -1,5 +1,4 @@
 import os
-
 from config import Config, config_options
 from flask import Flask
 from flask_login import LoginManager
@@ -29,7 +28,7 @@ def create_app(config_name):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
-    from app import models
+    
 
     from .main import main as mainblueprint
     app.register_blueprint(mainblueprint)

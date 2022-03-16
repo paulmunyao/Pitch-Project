@@ -1,9 +1,7 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    FLASK_ENV = 'production'
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
     # Database
@@ -17,11 +15,14 @@ class Config(object):
 
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    pass
 
 
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Access@localhost/pitch'
     DEBUG = True
+
+    pass
 
 
 config_options = {
