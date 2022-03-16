@@ -3,7 +3,7 @@
 {% block content %}
 <table>
     <tr valign="top">
-        <td><img src="images/'{{user.avatar(128)}}" alt="avatar"></td>
+
         <td>
             <h1 style="font-family:Raleway">User: {{ user.username }}</h1>
         </td>
@@ -13,7 +13,7 @@
 {% for post in posts %}
 <table>
     <tr valign="top">
-        <td><img src="{{post.title.avatar(36)}}"></td>
+
         <td>{{post.title.username}} says:<br>{{post.description}}</td>
     </tr>
 </table>

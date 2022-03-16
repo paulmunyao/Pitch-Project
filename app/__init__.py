@@ -32,6 +32,6 @@ def create_app(config_name):
     from app import models
 
     from .main import main as mainblueprint
-    app.register_blueprint(mainblueprint, url_prefix='/')
+    app.register_blueprint(mainblueprint)
 
     return app
