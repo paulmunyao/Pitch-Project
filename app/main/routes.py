@@ -16,22 +16,22 @@ def index():
     return render_template('index.html', title='Home', user=user, posts=posts,blogs=blogs)
 
 
-@main.route('/Login', methods=['GET', 'POST'])
-def Login():
+@main.route('/login', methods=['GET', 'POST'])
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.password_hash==form.password.data:
             flash('Invalid username or password')
-            return redirect(url_for('main.Login'))
+            return redirect(url_for('main.login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
             return redirect(next_page)
-        flash('Login requested for user {},remember_me={}'.format(form.username.data, form.remember_me.data))
+        flash('login requested for user {},remember_me={}'.format(form.username.data, form.remember_me.data))
         return redirect('/index')
-    return render_template('Login.html', title='Sign In', form=form)
+    return render_template('login.html', title='Sign In', form=form)
 
 
 @main.route('/register', methods=['GET', 'POST'])
@@ -45,7 +45,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('main.Login'))
+        return redirect(url_for('main.login'))
     return render_template('register.html', title='Register', form=form)
 
 

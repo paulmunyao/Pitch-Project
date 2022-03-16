@@ -1,12 +1,12 @@
-
+<h1 class="text-center mt-5" style="font-family:Raleway">The Blog Post</h1>
 <div class="text-center mt-5">
-    <a href="{{ url_for('main.index')}}">Home</a>
+    <a href="{{ url_for('main.index')}}" style="font-family:Raleway">Home</a>
     {% if current_user.is_anonymous %}
 
-    <a href="{{url_for('main.Login')}}">Login</a>
+
     {% else %}
-    <a href="{{url_for('main.user',username=current_user.username)}}">Profile</a>
-    <a href="{{url_for('main.logout')}}">Logout</a>
+    <a href="{{url_for('main.user',username=current_user.username)}}" style="font-family:Raleway">Profile</a>
+    <a href="{{url_for('main.logout')}}" style="font-family:Raleway">Logout</a>
     {% endif %}
 </div>
 <hr>
@@ -14,9 +14,8 @@
 {% if messages %}
 <ul>
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <li style="font-family:Raleway">{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
 {% endwith %}
-
